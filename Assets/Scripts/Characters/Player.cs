@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using InControl;
+
+enum PlayerStates { idle, walk, jumping }
 
 public class Player : Movable {
 
@@ -8,9 +10,11 @@ public class Player : Movable {
 	protected Rigidbody2D body;
 	protected Animator animator;
 	protected InputDevice input;
+    private PlayerStates playerState;
+    private Dictionary<PlayerStates, string> stateAnimMap;
 
-	// Controls
-	protected PlayerActions actions;
+    // Controls
+    protected PlayerActions actions;
 
 	// Moving
 	private float force = 20f;
@@ -31,24 +35,39 @@ public class Player : Movable {
 	void Start () {
 		body = gameObject.GetComponent<Rigidbody2D>();
 		animator = transform.GetComponent<Animator>();
+        playerState = PlayerStates.idle;
+
+        stateAnimMap = new Dictionary<PlayerStates, string>();
+        stateAnimMap.Add(PlayerStates.idle,"idle");
+        stateAnimMap.Add(PlayerStates.walk, "walk");
     }
-	
 	// Update is called once per frame
 	void Update () {
 		if (actions.Right.IsPressed || actions.Left.IsPressed)
 			Walk();
 		else
-			StopWalking();
-	}
+			Idle();
+    }
 
-	protected void StopWalking()
+    private void ChangeState(PlayerStates newState)
+    {
+        if (playerState != newState)
+        {
+            playerState = newState;
+            animator.Play(stateAnimMap[newState], -1, 0f);
+        }
+    }
+
+    protected void Idle()
 	{
-		body.velocity = new Vector2(0, body.velocity.y);
-		animator.speed = 0f;
-	}
+        ChangeState(PlayerStates.idle);
+        body.velocity = new Vector2(0, body.velocity.y);
+    }
 
 	protected void Walk()
 	{
+        ChangeState(PlayerStates.walk);
+
 		Vector2 forceVector;
 
 		if (actions.Left.IsPressed)
@@ -62,8 +81,6 @@ public class Player : Movable {
 		}
 
 		body.velocity = new Vector2(forceVector.x, body.velocity.y);
-
-		animator.speed = 1f;	
 	}
 
 }
