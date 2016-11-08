@@ -15,15 +15,23 @@ public class Player : Movable {
 	// Moving
 	private float force = 20f;
 
+    public void SetInputDevice(int inputDeviceIndex)
+    {
+        init_actions();
+        actions.Device = InputManager.Devices[inputDeviceIndex];
+    }
+
+    void init_actions()
+    {
+        if(actions == null)
+            actions = PlayerActions.CreateWithDefaultBindings();
+    }
+
 	// Use this for initialization
 	void Start () {
 		body = gameObject.GetComponent<Rigidbody2D>();
 		animator = transform.GetComponent<Animator>();
-		actions = PlayerActions.CreateWithDefaultBindings();
-
-		// Later for multiplayer this should be passed in
-		input = InputManager.ActiveDevice;
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
