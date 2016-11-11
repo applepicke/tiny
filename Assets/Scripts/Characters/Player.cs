@@ -15,7 +15,7 @@ public class Player : Movable {
 
 	// Controls
 	protected PlayerActions actions;
-	private float joystickThreshold = 0.6f;
+	private float joystickThreshold = 0.8f;
 
 	// Moving
 	private float force = 20f;
@@ -47,7 +47,7 @@ public class Player : Movable {
 	// Update is called once per frame
 	void Update ()
 	{
-		if (actions.Right.IsPressed || actions.Left.IsPressed)
+		if (actions.Right.Value > joystickThreshold || actions.Left.Value > joystickThreshold)
 			Walk();
 		else
 			Idle();
@@ -74,12 +74,12 @@ public class Player : Movable {
 
 		Vector2 forceVector = body.velocity;
 
-		if (actions.Left.IsPressed && actions.Left.Value > joystickThreshold)
+		if (actions.Left.Value > joystickThreshold)
 		{
 			forceVector = Vector2.left * force;
 			FaceLeft();
 		} 
-		else if (actions.Right.IsPressed && actions.Right.Value > joystickThreshold) {
+		else if (actions.Right.Value > joystickThreshold) {
 			forceVector = Vector2.right * force;
 			FaceRight();
 		}
