@@ -55,7 +55,15 @@ public class PlayerAssignmentManager : MonoBehaviour {
 
 	public void RemovePlayer(int playerNum)
 	{
-		assignments.RemoveAll(a => a.playerNum == playerNum);
+		if (connectedPlayers == 0)
+			return;
+
+		if (playerNum < 0)
+			playerNum = connectedPlayers;
+
+		var assignment = assignments.Find(a => a.playerNum == playerNum);
+		GameObject.Destroy(assignment.playerObject);
+		assignments.Remove(assignment);		
 	}
 
 	public override string ToString()

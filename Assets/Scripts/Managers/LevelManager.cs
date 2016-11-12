@@ -29,4 +29,9 @@ public class LevelManager : MonoBehaviour {
 		player.transform.position = new Vector3(playersObject.transform.position.x, playersObject.transform.position.y, 0);
 		assignment.InitializeBindings();
 	}
+
+	public void RemovePlayer(int playerNum)
+	{
+		assignments.RemovePlayer(playerNum);
+	}
 }

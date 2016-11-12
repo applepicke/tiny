@@ -58,7 +58,8 @@ public class Commands : MonoBehaviour {
 
 	static void remove_player(string playerNum = "")
 	{
-
+		int i = int.TryParse(playerNum, out i) ? i : -1;
+		levelManager.RemovePlayer(i);
 	}
 
 	static void list_devices(string arg = "")
