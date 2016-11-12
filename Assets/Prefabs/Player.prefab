@@ -22,9 +22,8 @@ GameObject:
   - 212: {fileID: 212000014266626296}
   - 50: {fileID: 50000011585961780}
   - 61: {fileID: 61000011938258130}
-  - 111: {fileID: 111000013249387630}
-  - 95: {fileID: 95000010440577608}
   - 114: {fileID: 114000014163066838}
+  - 95: {fileID: 95000014134302520}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -76,7 +75,7 @@ BoxCollider2D:
   m_Offset: {x: -0.015635965, y: -0.030395415}
   serializedVersion: 2
   m_Size: {x: 0.21820925, y: 0.505003}
---- !u!95 &95000010440577608
+--- !u!95 &95000014134302520
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
@@ -85,7 +84,7 @@ Animator:
   m_GameObject: {fileID: 1000012498646044}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b2e45bf0c83063747a8e385c8592e51e, type: 2}
+  m_Controller: {fileID: 9100000, guid: 85a82626377d76f4fad0a6ed9a810ba7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -93,21 +92,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!111 &111000013249387630
-Animation:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012498646044}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations:
-  - {fileID: 0}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!114 &114000014163066838
 MonoBehaviour:
   m_ObjectHideFlags: 1

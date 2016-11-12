@@ -14,23 +14,11 @@ public class Player : Movable {
 	private Dictionary<PlayerStates, string> stateAnimMap;
 
 	// Controls
-	protected PlayerActions actions;
+	public PlayerActions actions { get; set; }
 	private float joystickThreshold = 0.8f;
 
 	// Moving
 	private float force = 20f;
-
-	public void SetInputDevice(int inputDeviceIndex)
-	{
-		init_actions();
-		actions.Device = InputManager.Devices[inputDeviceIndex];
-	}
-
-	void init_actions()
-	{
-		if(actions == null)
-			actions = PlayerActions.CreateWithDefaultBindings();
-	}
 
 	// Use this for initialization
 	void Start ()
@@ -42,6 +30,8 @@ public class Player : Movable {
 		stateAnimMap = new Dictionary<PlayerStates, string>();
 		stateAnimMap.Add(PlayerStates.idle,"idle");
 		stateAnimMap.Add(PlayerStates.walk, "walk");
+
+		ChangeState(PlayerStates.idle);
 	}
 
 	// Update is called once per frame
@@ -58,6 +48,7 @@ public class Player : Movable {
 		if (playerState != newState)
 		{
 			playerState = newState;
+			Debug.Log(newState);
 			animator.Play(stateAnimMap[newState], -1, 0f);
 		}
 	}

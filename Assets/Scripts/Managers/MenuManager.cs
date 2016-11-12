@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Menu : TinyObject {
+public class MenuManager : TinyObject {
 
 	// Use this for initialization
 	void Start () {
