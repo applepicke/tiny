@@ -26,6 +26,7 @@ public class LevelManager : MonoBehaviour {
 		GameObject player = (GameObject)Instantiate(playerPrefab);
 		assignment.playerObject = player;
 		player.transform.parent = playersObject.transform;
+		player.transform.position = new Vector3(playersObject.transform.position.x, playersObject.transform.position.y, 0);
 		assignment.InitializeBindings();
 	}
 }
