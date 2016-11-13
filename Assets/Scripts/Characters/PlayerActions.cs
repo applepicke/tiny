@@ -6,6 +6,7 @@ public class PlayerActions : PlayerActionSet
 {
 	public PlayerAction Left;
 	public PlayerAction Right;
+	public PlayerAction Jump;
 	public PlayerOneAxisAction Move;
 
 	public PlayerAction Join;
@@ -14,6 +15,7 @@ public class PlayerActions : PlayerActionSet
 	{
 		Left = CreatePlayerAction("Move Left");
 		Right = CreatePlayerAction("Move Right");
+		Jump = CreatePlayerAction("Jump");
 		Move = CreateOneAxisPlayerAction(Left, Right);
 
 		Join = CreatePlayerAction("Join");
@@ -32,6 +34,8 @@ public class PlayerActions : PlayerActionSet
 		playerActions.Right.AddDefaultBinding(InputControlType.LeftStickRight);
 		playerActions.Left.AddDefaultBinding(InputControlType.DPadLeft);
 		playerActions.Right.AddDefaultBinding(InputControlType.DPadRight);
+
+		playerActions.Jump.AddDefaultBinding(InputControlType.Action1);
 
 		// Joining the game
 		playerActions.Join.AddDefaultBinding(InputControlType.Start);

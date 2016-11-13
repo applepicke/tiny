@@ -19,6 +19,9 @@ public class Player : Movable {
 
 	// Moving
 	private float force = 20f;
+	private float jumpForce = 20000f;
+	private float feetOffset = 1.54f;
+	protected bool doJump = false;
 
 	// Use this for initialization
 	void Start ()
@@ -32,6 +35,20 @@ public class Player : Movable {
 		stateAnimMap.Add(PlayerStates.walk, "walk");
 
 		ChangeState(PlayerStates.idle);
+	}
+
+	protected bool IsGrounded()
+	{
+		return Physics2D.Linecast(transform.position, new Vector2((float)transform.position.x, transform.position.y-feetOffset), 1 << LayerMask.NameToLayer("ground"));
+	}
+
+	void FixedUpdate()
+	{
+		if (actions.Jump.IsPressed && IsGrounded())
+		{
+			Vector2 force = (transform.up * jumpForce);
+			body.AddForce(force);
+		}
 	}
 
 	// Update is called once per frame
@@ -48,7 +65,6 @@ public class Player : Movable {
 		if (playerState != newState)
 		{
 			playerState = newState;
-			Debug.Log(newState);
 			animator.Play(stateAnimMap[newState], -1, 0f);
 		}
 	}
