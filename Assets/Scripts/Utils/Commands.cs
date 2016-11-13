@@ -43,7 +43,6 @@ public class Commands : MonoBehaviour {
 		try
 		{
 			int i = int.TryParse(device, out i) ? i : -1;
-			levelManager.AddPlayer(i);
 		}
 		catch (TooManyPlayersException)
 		{

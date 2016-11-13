@@ -18,7 +18,7 @@ public class TerrainGenerator : MonoBehaviour {
 		// the size of the terrain generator. This will dictate the size of
 		// tileData.
 
-		scaleSize = 5; // try lowering this or raising it for smaller or bigger tiles. Looks good at 3
+		scaleSize = 3; // try lowering this or raising it for smaller or bigger tiles. Looks good at 3
 		rows = ((int)transform.localScale.x/ scaleSize);
 		columns = ((int)transform.localScale.y/ scaleSize);
 		tileData = new int[rows, columns];

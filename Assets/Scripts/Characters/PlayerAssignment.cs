@@ -5,20 +5,13 @@ using InControl;
 public class PlayerAssignment {
 
 	public int playerNum { get; set; }
-	public int inputDevice { get; set; }
+	public InputDevice device { get; set; }
 	public GameObject playerObject { get; set; }
+	public PlayerActions actions { get; set; }
 
-	private PlayerActions actions;
-
-	public void InitializeBindings()
+	public void Bind(GameObject player)
 	{
-		actions = PlayerActions.CreateWithDefaultBindings();
-
-		if (inputDevice >= 0)
-			actions.Device = InputManager.Devices[inputDevice];
-		else
-			actions.Device = InputManager.ActiveDevice;
-
+		playerObject = player;
 		playerObject.GetComponent<Player>().actions = actions;
 	}
 

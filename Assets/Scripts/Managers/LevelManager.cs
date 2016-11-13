@@ -17,17 +17,22 @@ public class LevelManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		
+		AddUnboundPlayers();
 	}
 
-	public void AddPlayer(int device)
+	// Finds any assignments without players and adds a player to the game with bindings
+	public void AddUnboundPlayers()
 	{
-		PlayerAssignment assignment = assignments.AddPlayer(device);
-		GameObject player = (GameObject)Instantiate(playerPrefab);
-		assignment.playerObject = player;
-		player.transform.parent = playersObject.transform;
-		player.transform.position = new Vector3(playersObject.transform.position.x, playersObject.transform.position.y, 0);
-		assignment.InitializeBindings();
+		if (assignments.HasUnboundAssignments())
+		{
+			foreach (var assignment in assignments.GetUnboundAssignments())
+			{
+				GameObject player = (GameObject)Instantiate(playerPrefab);
+				assignment.Bind(player);
+				player.transform.parent = playersObject.transform;
+				player.transform.position = new Vector3(playersObject.transform.position.x, playersObject.transform.position.y, 0);
+			}
+		}
 	}
 
 	public void RemovePlayer(int playerNum)

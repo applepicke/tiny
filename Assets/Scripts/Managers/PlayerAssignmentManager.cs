@@ -9,19 +9,36 @@ public class MultipleBindingException : Exception { };
 
 public class PlayerAssignmentManager : MonoBehaviour {
 
+	private Dictionary<InputDevice, PlayerActions> knownDevices = new Dictionary<InputDevice, PlayerActions>();
+
 	private int maxPlayers = 4;
 	private int connectedPlayers = 0;
 	private List<PlayerAssignment> assignments = new List<PlayerAssignment>();
-	private List<InputDevice> devices = new List<InputDevice>();
 
 	// Use this for initialization
 	void Start () {
-
+		foreach (var d in InputManager.Devices)
+		{
+			PlayerActions actions = PlayerActions.CreateWithDefaultBindings();
+			knownDevices.Add(d, actions);
+			Debug.Log(string.Format("Adding new device: {0}", d.Name));
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		JoinNewPlayers();
+	}
+
+	public bool HasUnboundAssignments()
+	{
+		return assignments.Count > 0;
+	}
+
+	// Gets player assignments that have no player object bound to them
+	public List<PlayerAssignment> GetUnboundAssignments()
+	{
+		return assignments.FindAll(a => a.playerObject == null);
 	}
 
 	public bool canAddPlayer()
@@ -29,14 +46,13 @@ public class PlayerAssignmentManager : MonoBehaviour {
 		return connectedPlayers < maxPlayers;
 	}
 
-	// Add a player and return that new player's player num
-	public PlayerAssignment AddPlayer(int device)
+	private void AddPlayer(InputDevice device, PlayerActions actions)
 	{
 		if (connectedPlayers == maxPlayers)
 			throw new TooManyPlayersException();
 
 		// You can't have more than one player on the same device
-		var existing = assignments.FindAll(a => a.inputDevice == device);
+		var existing = assignments.FindAll(a => a.device == device);
 		if (existing.Count > 0)
 			throw new MultipleBindingException();
 
@@ -45,12 +61,11 @@ public class PlayerAssignmentManager : MonoBehaviour {
 		var assignment = new PlayerAssignment()
 		{
 			playerNum = connectedPlayers,
-			inputDevice = device,
+			device = device,
+			actions = actions
 		};
 
 		assignments.Add(assignment);
-
-		return assignment;
 	}
 
 	public void RemovePlayer(int playerNum)
@@ -66,10 +81,26 @@ public class PlayerAssignmentManager : MonoBehaviour {
 		assignments.Remove(assignment);		
 	}
 
+	// Detect "Start" or "Enter" to add a new player to the map
+	private void JoinNewPlayers()
+	{
+		foreach (KeyValuePair<InputDevice, PlayerActions> p in knownDevices)
+		{
+			var device = p.Key;
+			var actions = p.Value;
+
+			if (canAddPlayer() && actions.Join.WasPressed)
+			{
+				if (assignments.FindAll(d => d.device == device).Count == 0)
+					AddPlayer(device, actions);
+			}
+		}
+
+	}
+
 	public override string ToString()
 	{
 		return string.Format("{0} players connected", connectedPlayers);
 	}
-
 
 }
