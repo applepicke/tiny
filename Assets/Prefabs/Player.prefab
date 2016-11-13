@@ -24,9 +24,10 @@ GameObject:
   - 61: {fileID: 61000011938258130}
   - 114: {fileID: 114000014163066838}
   - 95: {fileID: 95000014134302520}
+  - 58: {fileID: 58000010414755198}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012498646044}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.5, y: 4.7, z: 10}
+  m_LocalPosition: {x: -49.643597, y: 28.62716, z: 10}
   m_LocalScale: {x: 5.200162, y: 5.3501673, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -61,6 +62,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!58 &58000010414755198
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012498646044}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 2c739de51582365449860b8a581672d2, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: -0.01, y: -0.175}
+  serializedVersion: 2
+  m_Radius: 0.11
 --- !u!61 &61000011938258130
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -72,9 +87,9 @@ BoxCollider2D:
   m_Material: {fileID: 6200000, guid: 2c739de51582365449860b8a581672d2, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: -0.015635965, y: -0.030395415}
+  m_Offset: {x: -0.015636103, y: 0.029847825}
   serializedVersion: 2
-  m_Size: {x: 0.21820925, y: 0.505003}
+  m_Size: {x: 0.21820925, y: 0.3845166}
 --- !u!95 &95000014134302520
 Animator:
   serializedVersion: 3

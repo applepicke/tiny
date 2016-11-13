@@ -21,7 +21,6 @@ public class Player : Movable {
 	private float force = 20f;
 	private float jumpForce = 20000f;
 	private float feetOffset = 1.54f;
-	protected bool doJump = false;
 
 	// Use this for initialization
 	void Start ()
@@ -39,7 +38,12 @@ public class Player : Movable {
 
 	protected bool IsGrounded()
 	{
-		return Physics2D.Linecast(transform.position, new Vector2((float)transform.position.x, transform.position.y-feetOffset), 1 << LayerMask.NameToLayer("ground"));
+		return Physics2D.Linecast(transform.position, new Vector2((float)transform.position.x, transform.position.y - feetOffset), 1 << LayerMask.NameToLayer("ground"));
+	}
+
+	protected bool OnLadder()
+	{
+		return (body.gravityScale == 0);
 	}
 
 	void FixedUpdate()
@@ -54,7 +58,7 @@ public class Player : Movable {
 	// Update is called once per frame
 	void Update ()
 	{
-		if (actions.Right.Value > joystickThreshold || actions.Left.Value > joystickThreshold)
+		if (StickAction())
 			Walk();
 		else
 			Idle();
@@ -72,7 +76,12 @@ public class Player : Movable {
 	protected void Idle()
 	{
 		ChangeState(PlayerStates.idle);
-		body.velocity = new Vector2(0, body.velocity.y);
+		body.velocity = new Vector2(0, (OnLadder() ? 0 : body.velocity.y));
+	}
+
+	protected bool StickAction()
+	{
+		return (actions.Right.Value > joystickThreshold || actions.Left.Value > joystickThreshold || actions.Up.Value > joystickThreshold || actions.Down.Value > joystickThreshold);
 	}
 
 	protected void Walk()
@@ -85,13 +94,23 @@ public class Player : Movable {
 		{
 			forceVector = Vector2.left * force;
 			FaceLeft();
-		} 
-		else if (actions.Right.Value > joystickThreshold) {
+		}
+		else if (actions.Right.Value > joystickThreshold)
+		{
 			forceVector = Vector2.right * force;
 			FaceRight();
 		}
 
-		body.velocity = new Vector2(forceVector.x, body.velocity.y);
-	}
+		if (OnLadder())
+		{
+			if (actions.Up.Value > joystickThreshold)
+				forceVector.y = force;
+			else if (actions.Down.Value > joystickThreshold)
+				forceVector.y = -1 * force;
+		}
+		else
+			forceVector.y = body.velocity.y;
 
+		body.velocity = forceVector;
+	}
 }
