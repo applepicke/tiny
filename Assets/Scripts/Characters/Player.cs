@@ -2,16 +2,13 @@
 using System.Collections.Generic;
 using InControl;
 
-enum PlayerStates { idle, walk, jumping }
-
 public class Player : Movable {
 
 	// Object
 	protected Rigidbody2D body;
 	protected Animator animator;
 	protected InputDevice input;
-	private PlayerStates playerState;
-	private Dictionary<PlayerStates, string> stateAnimMap;
+	private AnimatorStates states;
 
 	// Controls
 	public PlayerActions actions { get; set; }
@@ -27,13 +24,14 @@ public class Player : Movable {
 	{
 		body = gameObject.GetComponent<Rigidbody2D>();
 		animator = transform.GetComponent<Animator>();
-		playerState = PlayerStates.idle;
 
-		stateAnimMap = new Dictionary<PlayerStates, string>();
-		stateAnimMap.Add(PlayerStates.idle,"idle");
-		stateAnimMap.Add(PlayerStates.walk, "walk");
+		states = new AnimatorStates(animator, new string[] {
+			"walk",
+			"idle",
+			"jump"
+		});
 
-		ChangeState(PlayerStates.idle);
+		states.ChangeState("idle");
 	}
 
 	protected bool IsGrounded()
@@ -64,18 +62,9 @@ public class Player : Movable {
 			Idle();
 	}
 
-	private void ChangeState(PlayerStates newState)
-	{
-		if (playerState != newState)
-		{
-			playerState = newState;
-			animator.Play(stateAnimMap[newState], -1, 0f);
-		}
-	}
-
 	protected void Idle()
 	{
-		ChangeState(PlayerStates.idle);
+		states.ChangeState("idle");
 		body.velocity = new Vector2(0, (OnLadder() ? 0 : body.velocity.y));
 	}
 
@@ -86,7 +75,7 @@ public class Player : Movable {
 
 	protected void Walk()
 	{
-		ChangeState(PlayerStates.walk);
+		states.ChangeState("walk");
 
 		Vector2 forceVector = body.velocity;
 
