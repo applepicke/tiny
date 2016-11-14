@@ -22,7 +22,7 @@ GameObject:
   - 212: {fileID: 212000013941422472}
   - 61: {fileID: 61000013036810982}
   - 114: {fileID: 114000010327390860}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LadderTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
