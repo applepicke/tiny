@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 351c510d4e197204e81651a1d6ee6615
-timeCreated: 1479083576
+guid: d06abb68d726ec24eb5fc3cba27c4f33
+timeCreated: 1479183337
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName: {}
@@ -19,7 +19,7 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-  isReadable: 1
+  isReadable: 0
   grayScaleToAlpha: 0
   generateCubemap: 0
   cubemapConvolution: 0
@@ -47,11 +47,11 @@ TextureImporter:
   spritePixelsToUnits: 32
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 5
+  textureType: 8
   buildTargetSettings:
   - buildTarget: Standalone
     maxTextureSize: 2048
-    textureFormat: 3
+    textureFormat: -3
     compressionQuality: 50
     allowsAlphaSplitting: 0
   spriteSheet:
