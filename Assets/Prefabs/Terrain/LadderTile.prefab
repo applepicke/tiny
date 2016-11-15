@@ -20,9 +20,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011847018590}
   - 212: {fileID: 212000013941422472}
-  - 61: {fileID: 61000013036810982}
   - 114: {fileID: 114000010327390860}
-  m_Layer: 8
+  - 61: {fileID: 61000011743034754}
+  m_Layer: 0
   m_Name: LadderTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!61 &61000013036810982
+--- !u!61 &61000011743034754
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -53,9 +53,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0000025431316, y: 0.015897116}
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.80924124, y: 1.3815107}
 --- !u!114 &114000010327390860
 MonoBehaviour:
   m_ObjectHideFlags: 1

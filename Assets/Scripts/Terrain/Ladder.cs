@@ -17,8 +17,7 @@ public class Ladder : MonoBehaviour {
 	{
 		if (other.transform.tag == "Player")
 		{
-			Rigidbody2D playerBody = ((Rigidbody2D)(other.transform.GetComponent("Rigidbody2D")));
-			playerBody.gravityScale = 0;
+			other.gameObject.GetComponent<Player>().ladder = transform;
 		}
 	}
 
@@ -26,8 +25,7 @@ public class Ladder : MonoBehaviour {
 	{
 		if (other.transform.tag == "Player")
 		{
-			Rigidbody2D playerBody = ((Rigidbody2D)(other.transform.GetComponent("Rigidbody2D")));
-			playerBody.gravityScale = 1;
+			other.gameObject.GetComponent<Player>().ladder = null;
 		}
 	}
 }

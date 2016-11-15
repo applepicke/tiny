@@ -19,6 +19,8 @@ public class Player : Movable {
 	private float jumpForce = 20000f;
 	private float feetOffset = 1.54f;
 
+	public Transform ladder;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -28,7 +30,8 @@ public class Player : Movable {
 		states = new AnimatorStates(animator, new string[] {
 			"walk",
 			"idle",
-			"jump"
+			"jump",
+			"climb"
 		});
 
 		states.ChangeState("idle");
@@ -37,11 +40,6 @@ public class Player : Movable {
 	protected bool IsGrounded()
 	{
 		return Physics2D.Linecast(transform.position, new Vector2((float)transform.position.x, transform.position.y - feetOffset), 1 << LayerMask.NameToLayer("ground"));
-	}
-
-	protected bool OnLadder()
-	{
-		return (body.gravityScale == 0);
 	}
 
 	void FixedUpdate()
@@ -56,21 +54,46 @@ public class Player : Movable {
 	// Update is called once per frame
 	void Update ()
 	{
-		if (StickAction())
+		if (OnLadder() && VerticalAction())
+			Climb();
+		else if (HorizontalAction())
 			Walk();
 		else
 			Idle();
 	}
 
+	protected bool OnLadder()
+	{
+		return ladder != null;
+	}
+
+	protected bool VerticalAction()
+	{
+		return actions.Up.Value > joystickThreshold || actions.Down.Value > joystickThreshold;
+	}
+
+	protected bool HorizontalAction()
+	{
+		return actions.Right.Value > joystickThreshold || actions.Left.Value > joystickThreshold;
+	}
+
 	protected void Idle()
 	{
 		states.ChangeState("idle");
-		body.velocity = new Vector2(0, (OnLadder() ? 0 : body.velocity.y));
+		body.velocity = new Vector2(0, body.velocity.y);
 	}
 
-	protected bool StickAction()
+	protected void Climb()
 	{
-		return (actions.Right.Value > joystickThreshold || actions.Left.Value > joystickThreshold || actions.Up.Value > joystickThreshold || actions.Down.Value > joystickThreshold);
+		Idle();
+		states.ChangeState("climb");
+
+		if (actions.Up.Value > joystickThreshold)
+			body.velocity = new Vector2(0, force);
+		else if (actions.Down.Value > joystickThreshold)
+			body.velocity = new Vector2(0, -force);
+
+		transform.position = new Vector2(ladder.position.x, transform.position.y);
 	}
 
 	protected void Walk()
@@ -90,16 +113,6 @@ public class Player : Movable {
 			FaceRight();
 		}
 
-		if (OnLadder())
-		{
-			if (actions.Up.Value > joystickThreshold)
-				forceVector.y = force;
-			else if (actions.Down.Value > joystickThreshold)
-				forceVector.y = -1 * force;
-		}
-		else
-			forceVector.y = body.velocity.y;
-
-		body.velocity = forceVector;
+		body.velocity = new Vector2(forceVector.x, body.velocity.y);
 	}
 }
