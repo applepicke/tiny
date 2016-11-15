@@ -35,7 +35,7 @@ public class LevelManager : MonoBehaviour {
             ResetBall();
 
         // If there is no ball on the map, and the timer isn't running, start the timer
-        if (GameObject.FindGameObjectWithTag("Ball") == null && ballRespawnTimer <= 0)
+        if (ball == null && ballRespawnTimer <= 0)
             Instantiate(ballPrefab, new Vector3(0, 50, 10), Quaternion.identity);
         else
             ballRespawnTimer -= Time.deltaTime;
