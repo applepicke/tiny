@@ -10,9 +10,11 @@ public class Commands : MonoBehaviour {
 	protected static LevelManager levelManager;
 
 	private Dictionary<string, string> commands = new Dictionary<string, string> {
-		{ "add_player", "|device| adds a player by device number (defaults to ActiveDevice)" },
-		{ "remove_player", "|player_num| removes player by number (defaults to most recent player)" },
-		{ "list_devices", "lists all available devices"},
+		//{ "add_player", "|device| adds a player by device number (defaults to ActiveDevice)" },
+		//{ "remove_player", "|player_num| removes player by number (defaults to most recent player)" },
+		//{ "list_devices", "lists all available devices"},
+		{ "add_powerup", "adds specified powerup to first player" },
+		{ "rm_powerup", "removes the specified powerup from the first player" },
 		{ "mute", "toggles audio"},
 	};
 
@@ -73,6 +75,24 @@ public class Commands : MonoBehaviour {
 	static void mute(string arg = "")
 	{
 		AudioListener.pause = !AudioListener.pause;
+	}
+
+	static void add_powerup(string powerup_id)
+	{
+		var assignments = GameObject.Find("PlayerAssignmentManager").GetComponent<PlayerAssignmentManager>();
+		var assignment = assignments.GetAssignment(1);
+		var player = assignment.playerObject.GetComponent<Player>();
+
+		player.AddPowerup(powerup_id);
+	}
+
+	static void rm_powerup(string powerup_id)
+	{
+		var assignments = GameObject.Find("PlayerAssignmentManager").GetComponent<PlayerAssignmentManager>();
+		var assignment = assignments.GetAssignment(1);
+		var player = assignment.playerObject.GetComponent<Player>();
+
+		player.RemovePowerup(powerup_id);
 	}
 
 }

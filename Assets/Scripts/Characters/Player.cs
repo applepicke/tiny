@@ -15,8 +15,9 @@ public class Player : Movable {
 	private float joystickThreshold = 0.8f;
 
 	// Moving
-	private float force = 20f;
-	private float jumpForce = 20000f;
+	public float force = 20f;
+	public float jumpForce = 20000f;
+
 	private float feetOffset = 1.54f;
 
 	public Transform ladder;

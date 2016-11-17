@@ -30,6 +30,11 @@ public class PlayerAssignmentManager : MonoBehaviour {
 		JoinNewPlayers();
 	}
 
+	public PlayerAssignment GetAssignment(int player_num)
+	{
+		return assignments[player_num - 1];
+	}
+
 	public bool HasUnboundAssignments()
 	{
 		return assignments.Count > 0;
@@ -95,7 +100,6 @@ public class PlayerAssignmentManager : MonoBehaviour {
 					AddPlayer(device, actions);
 			}
 		}
-
 	}
 
 	public override string ToString()
