@@ -10,6 +10,7 @@ public class Player : Movable {
 	protected InputDevice input;
 	private AnimatorStates states;
 
+
 	// Controls
 	public PlayerActions actions { get; set; }
 	private float joystickThreshold = 0.8f;
@@ -17,16 +18,59 @@ public class Player : Movable {
 	// Moving
 	public float force = 20f;
 	public float jumpForce = 20000f;
-
 	private float feetOffset = 1.54f;
 
 	public Transform ladder;
+
+	// Health stuff
+	private int health;
+	private int maxHealth;
+	private float deadTime;
+	private int respawnTime;
+
+	// Weapon
+	public GameObject equippedWeapon;
+
+	void TogglePlayer(bool alive)
+	{
+		foreach (var collider in this.gameObject.GetComponents<Collider2D>())
+		{
+			collider.enabled = alive;
+		}
+		((SpriteRenderer)this.gameObject.GetComponent<SpriteRenderer>()).enabled = alive;
+		((Rigidbody2D)this.gameObject.GetComponent<Rigidbody2D>()).isKinematic = !alive;
+	}
+
+	void KillPlayer()
+	{
+		health = 0;
+		TogglePlayer(false);
+		deadTime = 0;
+		equippedWeapon = null;
+	}
+
+	void RespawnPlayer()
+	{
+		health = maxHealth;
+		TogglePlayer(true);
+		gameObject.transform.position = new Vector3(0, 50, 0);
+	}
+
+	public int GetSpawnTimeLeft()
+	{
+		return respawnTime - ((int)deadTime);
+	}
 
 	// Use this for initialization
 	void Start ()
 	{
 		body = gameObject.GetComponent<Rigidbody2D>();
 		animator = transform.GetComponent<Animator>();
+
+		// some player variables...
+		health = 25;
+		maxHealth = 100;
+		respawnTime = 5;
 
 		states = new AnimatorStates(animator, new string[] {
 			"walk",
@@ -52,15 +96,53 @@ public class Player : Movable {
 		}
 	}
 
+	public bool IsDead()
+	{
+		return health == 0;
+	}
+
+	void CheckFire()
+	{
+		if (equippedWeapon != null)
+		{
+			if (actions.Trigger.IsPressed)
+			{
+				equippedWeapon.GetComponent<TinyWeapon>().OnTriggerPressed();
+			}
+			else
+			{
+				equippedWeapon.GetComponent<TinyWeapon>().OnTriggerReleased();
+			}
+		}
+	}
+
 	// Update is called once per frame
 	void Update ()
 	{
+		CheckFire();
+
 		if (OnLadder() && VerticalAction())
 			Climb();
 		else if (HorizontalAction())
 			Walk();
 		else
 			Idle();
+
+		UpdateVitals();
+
+	}
+
+	// player death and respawn
+	void UpdateVitals()
+	{
+		if (gameObject.transform.position.y < -25 && !IsDead())
+			KillPlayer();
+
+		if (health == 0)
+			deadTime += Time.deltaTime;
+
+		if (deadTime > respawnTime && IsDead())
+			RespawnPlayer();
 	}
 
 	protected bool OnLadder()
@@ -95,6 +177,12 @@ public class Player : Movable {
 			body.velocity = new Vector2(0, -force);
 
 		transform.position = new Vector2(ladder.position.x, transform.position.y);
+	}
+
+	public float HealthAsPercent()
+	{
+		float result = ((float)health) / 100;
+		return result;
 	}
 
 	protected void Walk()

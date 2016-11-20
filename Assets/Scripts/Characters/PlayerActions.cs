@@ -9,6 +9,7 @@ public class PlayerActions : PlayerActionSet
 	public PlayerAction Up;
 	public PlayerAction Down;
 	public PlayerAction Jump;
+	public PlayerAction Trigger;
 	public PlayerOneAxisAction Move;
 
 	public PlayerAction Join;
@@ -20,6 +21,8 @@ public class PlayerActions : PlayerActionSet
 		Up = CreatePlayerAction("Move Up");
 		Down = CreatePlayerAction("Move Down");
 		Jump = CreatePlayerAction("Jump");
+		Trigger = CreatePlayerAction("Trigger");
+
 		Move = CreateOneAxisPlayerAction(Left, Right);
 
 		Join = CreatePlayerAction("Join");
@@ -29,7 +32,6 @@ public class PlayerActions : PlayerActionSet
 	public static PlayerActions CreateWithDefaultBindings()
 	{
 		var playerActions = new PlayerActions();
-
 
 		// Movement
 		// Keys
@@ -45,8 +47,7 @@ public class PlayerActions : PlayerActionSet
 		playerActions.Right.AddDefaultBinding(InputControlType.DPadRight);
 		// Buttons
 		playerActions.Jump.AddDefaultBinding(InputControlType.Action1);
-
-		playerActions.Jump.AddDefaultBinding(InputControlType.Action1);
+		playerActions.Trigger.AddDefaultBinding(InputControlType.RightTrigger);
 
 		// Joining the game
 		playerActions.Join.AddDefaultBinding(InputControlType.Start);
