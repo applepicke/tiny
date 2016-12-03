@@ -19,26 +19,27 @@ public class WeaponPanel : MonoBehaviour {
 		
 		GameObject player = GameObject.FindGameObjectWithTag("Player");
 
-		if (player != null && player.GetComponent<Player>().equippedWeapon != null)
+		if (player != null && player.GetComponent<Player>().weapon1 != null)
 		{
-			TinyWeapon test = player.GetComponent<Player>().equippedWeapon.GetComponent<TinyWeapon>();
+			TinyWeapon test = player.GetComponent<Player>().weapon1;
 
 			if (test != weapon)
 				reloadOverlay.rectTransform.sizeDelta = reloadOverlayEmpty.rectTransform.sizeDelta;
 
-			weapon = player.GetComponent<Player>().equippedWeapon.GetComponent<TinyWeapon>();
+			weapon = player.GetComponent<Player>().weapon1;
 
 			weaponImage.enabled = true;
 			ammoRemaining.enabled = true;
 		}
-		else if (player != null && player.GetComponent<Player>().equippedWeapon == null)
+		else if (player != null && player.GetComponent<Player>().weapon1 == null)
+		{
 			weapon = null;
-
+		}
 		if(weapon != null)
 		{
 			ammoRemaining.text = weapon.roundsInMag + " / " + weapon.magSize;
 
-			weaponImage.sprite = weapon.GetComponent<SpriteRenderer>().sprite;
+			weaponImage.sprite = weapon.sprite;
 
 			RectTransform startSize = reloadOverlayEmpty.rectTransform;
 			RectTransform endSize = reloadOverlayFull.rectTransform;

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class TinyWeapon : TinyObject
+public abstract class TinyWeapon
 {
 	// Different Fire modes
 	// Semiauto you press the trigger each time you want to fire
@@ -9,7 +9,6 @@ public abstract class TinyWeapon : TinyObject
 	// Charge you hold the trigger down then release
 	public enum FireMode { semiauto, auto, charge}
 
-	// changable in the editor...
 	public float chargeTime;
 	public float reloadDuration;
 	public float fireRate;
@@ -23,6 +22,9 @@ public abstract class TinyWeapon : TinyObject
 	private float timeSinceFired;
 	public bool reloading;
 	public float reloadTime;
+
+	public TinyObject holder;
+	public Sprite sprite;
 
 	public void OnTriggerPressed()
 	{
@@ -50,11 +52,7 @@ public abstract class TinyWeapon : TinyObject
 		}
 	}
 
-	void Start()
-	{
-	}
-
-	void Update()
+	public void UpdateReload()
 	{ 
 		if (reloading)
 			reloadTime += Time.deltaTime;
@@ -78,29 +76,6 @@ public abstract class TinyWeapon : TinyObject
 
 			timeSinceFired = 0;
 			isPressed = false;
-		}
-	}
-
-	void ToggleWeapon(bool alive)
-	{
-		foreach (var collider in this.gameObject.GetComponents<Collider2D>())
-		{
-			collider.enabled = alive;
-		}
-		((SpriteRenderer)this.gameObject.GetComponent<SpriteRenderer>()).enabled = alive;
-	}
-
-	void OnTriggerEnter2D(Collider2D other)
-	{
-		Player player = other.GetComponentInParent<Player>();
-		if(player != null)
-		{
-			if(other.transform.childCount > 0)
-				Destroy(other.transform.GetChild(0).gameObject);
-
-			player.equippedWeapon = this.gameObject;
-			player.equippedWeapon.transform.parent = player.transform;
-			ToggleWeapon(false);
 		}
 	}
 
