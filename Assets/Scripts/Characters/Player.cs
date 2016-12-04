@@ -28,6 +28,16 @@ public class Player : Movable {
 	private float deadTime;
 	private int respawnTime = 5;
 
+	// Levelling
+	private Leveller leveller;
+	private Dictionary<int, Powerup> LEVEL_MAP = new Dictionary<int, Powerup>()
+	{
+		{ 1, new SniperPowerup() },
+		{ 2, new SpeedPowerup() },
+		{ 3, null },
+		{ 4, new PlasmaRiflePowerup() },
+	};
+
 	// Weapon
 	public GameObject weapon1;
 
@@ -44,7 +54,7 @@ public class Player : Movable {
 			"climb"
 		});
 
-		AddPowerup("sniper_rifle");
+		leveller = new Leveller(this, LEVEL_MAP);
 
 		states.ChangeState("idle");
 	}
@@ -67,6 +77,8 @@ public class Player : Movable {
 		UpdateVitals();
 	
 	}
+
+	public void AddExperience(int exp) { leveller.AddExperience(exp); }
 
 	void TogglePlayer(bool alive)
 	{
