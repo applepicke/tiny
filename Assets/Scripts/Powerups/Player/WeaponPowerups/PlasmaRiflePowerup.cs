@@ -8,6 +8,6 @@ public class PlasmaRiflePowerup : WeaponPowerup
 	{
 		id = "plasma_rifle";
 		name = "Plasma Rifle";
-		weapon = new PlasmaRifle();
+		weaponPath = "Items/Weapons/PlasmaRifle";
 	}
 }

@@ -9,8 +9,6 @@ public abstract class ProjectileWeapon : TinyWeapon
 	{
 		roundsInMag--;
 
-		var projectile = Resources.Load("Items/Projectiles/EnergyBall");
-
 		GameObject newProjectile = (GameObject)GameObject.Instantiate(projectile, new Vector2(holder.transform.position.x, holder.transform.position.y), Quaternion.identity);
 		newProjectile.GetComponent<Projectile>().direction = (holder.transform.localScale.x < 0) ? Vector2.left : Vector2.right;
 

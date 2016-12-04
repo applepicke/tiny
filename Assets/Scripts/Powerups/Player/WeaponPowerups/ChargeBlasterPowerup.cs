@@ -7,6 +7,6 @@ public class ChargeBlasterPowerup : WeaponPowerup {
 	{
 		id = "charge_blaster";
 		name = "Charge Blaster";
-		weapon = new ChargeBlaster();
+		weaponPath = "Items/Weapons/ChargeBlaster";
 	}
 }

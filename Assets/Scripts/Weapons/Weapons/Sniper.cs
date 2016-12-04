@@ -4,8 +4,6 @@ using System;
 
 public class Sniper : RaycastWeapon
 {
-	protected new Sprite sprite = Resources.Load<Sprite>("Items/Weapons/sniper");
-
 	public Sniper()
 	{
 		chargeTime = 0;

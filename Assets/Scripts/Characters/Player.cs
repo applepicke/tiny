@@ -29,7 +29,7 @@ public class Player : Movable {
 	private int respawnTime = 5;
 
 	// Weapon
-	public TinyWeapon weapon1;
+	public GameObject weapon1;
 
 	// Use this for initialization
 	void Start ()
@@ -65,10 +65,7 @@ public class Player : Movable {
 		}
 
 		UpdateVitals();
-
-		if (weapon1 != null)
-			weapon1.UpdateReload();
-
+	
 	}
 
 	void TogglePlayer(bool alive)
@@ -125,11 +122,11 @@ public class Player : Movable {
 		{
 			if (actions.Trigger.IsPressed)
 			{
-				weapon1.OnTriggerPressed();
+				weapon1.GetComponent<TinyWeapon>().OnTriggerPressed();
 			}
 			else
 			{
-				weapon1.OnTriggerReleased();
+				weapon1.GetComponent<TinyWeapon>().OnTriggerReleased();
 			}
 		}
 	}

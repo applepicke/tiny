@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class TinyWeapon
+public abstract class TinyWeapon : TinyObject
 {
 	// Different Fire modes
 	// Semiauto you press the trigger each time you want to fire
@@ -9,22 +9,27 @@ public abstract class TinyWeapon
 	// Charge you hold the trigger down then release
 	public enum FireMode { semiauto, auto, charge}
 
-	public float chargeTime;
-	public float reloadDuration;
-	public float fireRate;
-	public int magSize;
-	public FireMode fireMode;
-	public Sprite weaponImage;
-	public int roundsInMag;
+	protected float chargeTime;
+	protected float reloadDuration;
+	protected float fireRate;
+	protected int magSize;
+	protected FireMode fireMode;
+	protected Sprite weaponImage;
+	protected int roundsInMag;
 
 	// Control stuff
 	private bool isPressed;
 	private float timeSinceFired;
-	public bool reloading;
-	public float reloadTime;
+	protected bool reloading;
+	protected float reloadTime;
 
 	public TinyObject holder;
-	public Sprite sprite;
+
+	public float GetReloadDuration() { return reloadDuration; }
+	public int GetMagSize() { return magSize; }
+	public int GetRoundsInMag() { return roundsInMag; }
+	public bool IsReloading() { return reloading; }
+	public float GetReloadTime() { return reloadTime; }
 
 	public void OnTriggerPressed()
 	{
@@ -52,7 +57,7 @@ public abstract class TinyWeapon
 		}
 	}
 
-	public void UpdateReload()
+	void Update()
 	{ 
 		if (reloading)
 			reloadTime += Time.deltaTime;

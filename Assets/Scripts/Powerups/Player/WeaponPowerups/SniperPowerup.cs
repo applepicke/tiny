@@ -7,6 +7,6 @@ public class SniperPowerup : WeaponPowerup
 	{
 		id = "sniper_rifle";
 		name = "Sniper Rifle";
-		weapon = new Sniper();
+		weaponPath = "Items/Weapons/Sniper";
 	}
 }
