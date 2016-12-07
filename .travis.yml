@@ -8,7 +8,7 @@ script:
 - "./Scripts/build.sh"
 deploy:
   provider: s3
-  access_key_id: AKIAJSMOSCU7OBBJICFQ
+  access_key_id: AKIAJXTQEOGVBFSGTVPA
   secret_access_key:
     secure: ENuSoKZ7yPYBxEkXBBPwFk7ZhQuQKvwedJLTSyyIcuzC9Bt+bufpCUSsH0cWEFytQNLipb2bmMRaRO6xx5TPeJ/Am2SoTZl/Pbw64YLevj3r+HTDt7HkyYl/E0ltfTG5JyT/AHO2kLg1TXrpQG88oKpuAvTi7CZLo1brtYckTf205IGyLu7QHc3aI3q1i0/nY68fLOBBigK/NoHdPhjrjJicK2MDSbv7n9bFWWZGlthV2ZapbEGo86uqKs7iSJzdLWBcncLf1WuP3twWKyuJT/ExzfxkFUhO0LG4ELzsgNB5TT+e7+786NiN+unj/sFTNE+pLUCFbzVwrAJqYu9i8i2GRymc6bYX57ut22sbzi6j9KDBETmFVAlSvG4StwLXG0fXvRDNghhB2s+XZ2qQP9W+sUWU4MoI7Wh0j07nhYFzDzkADyMlr7E9SIINCVCaoKaxtO3eIsWcH2K9+NQyVNQuurto/S2zjFSwO8NEO9T7cbaxBq+NDN0G8OtJiMXvzYxbgFVsPPr7OIWCCDk/VWxeo0tCt2hkSkXsHinriTrvfYe7zj2iYupNSwhfTyKW9N32W/AknoWoX8nAZbOnj6pCU96/zfA0MbGi+Xm3w9Y4PycyHATSKcCydbpPObJraUqfiD0lT1uzV+Hv7APVSVGAXVpLa0uZc3vVIRn+jm0=
   bucket: tinypixelgame
