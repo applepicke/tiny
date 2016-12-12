@@ -7,9 +7,8 @@ public class Player : Movable {
 	// Object
 	protected Rigidbody2D body;
 	protected Animator animator;
-	protected InputDevice input;
 	private AnimatorStates states;
-
+	public PlayerAssignment assignment;
 
 	// Controls
 	public PlayerActions actions { get; set; }
@@ -132,11 +131,12 @@ public class Player : Movable {
 	{
 		if (weapon1 != null)
 		{
-			if (actions.Trigger.IsPressed)
+			if (actions.Trigger.WasPressed)
 			{
+				
 				weapon1.GetComponent<TinyWeapon>().OnTriggerPressed();
 			}
-			else
+			else if (actions.Trigger.WasReleased)
 			{
 				weapon1.GetComponent<TinyWeapon>().OnTriggerReleased();
 			}
