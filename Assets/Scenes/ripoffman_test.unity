@@ -1324,7 +1324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   holder: {fileID: 0}
-  projectile: {fileID: 1000010947145538, guid: 8e31b967ea48bea42bc6202533705997, type: 2}
+  projectilePrefab: {fileID: 0}
 --- !u!1 &1575810404 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1000011441078844, guid: e1c043506248ebb43b24fb2b721e8f15,
@@ -1544,7 +1544,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   holder: {fileID: 0}
-  projectile: {fileID: 1000010947145538, guid: 8e31b967ea48bea42bc6202533705997, type: 2}
+  projectilePrefab: {fileID: 0}
 --- !u!4 &1796023557 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4000013728730756, guid: 61a78dedca04c1a46b7281723a4150c3,
